@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 int main()
 {
     int key;
@@ -11,13 +13,18 @@ int main()
     
         if (key==ar[i])
         {
-            printf("found at %d",i+1);
-            
+            printf("found at index %d\n",i);
+            printf("number of comparisons %d\n",i+1);
+            break;
+        }
+        
+        else
+        {
+            printf("key not found");
+            break;
         }
        
     }
-
-    
 
     return 0;
 }
