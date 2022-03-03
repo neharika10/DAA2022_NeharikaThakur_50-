@@ -16,13 +16,12 @@ int main()
             printf("found at index %d\n",i);
             printf("number of comparisons %d\n",i+1);
             break;
+            
         }
+        else if (i==6)
+        printf("element not found");
         
-        else
-        {
-            printf("key not found");
-            break;
-        }
+        
        
     }
 
