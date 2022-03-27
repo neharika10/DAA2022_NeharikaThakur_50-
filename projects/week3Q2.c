@@ -1,1 +1,3 @@
-
+/*
+WAP to implement selection sort and find out total number of comparisons.
+*/
