@@ -1,3 +1,11 @@
+/*
+Given an array of non-negative integers, design a linear alogrithm and implement it using a program to find whether 
+the given key element is present in the array or not.
+Also find total number of comparisons.
+*/
+
+
+
 #include <stdio.h>
 int main()
 {
