@@ -1,39 +1,24 @@
-#include<stdio.h>
+#include <stdio.h>
 int main()
 {
-    int ar[10],n,key,count=0,flag=0,a,b,c;
-    printf("enter length of array\n");
-    scanf("%d",&n);
-    for(int i=0;i<n;i++)
+    int key;
+    int ar[7] = {5, 6, 8, 2, 1, 9, 25};
+
+    printf("\nenter the key you wish to search: ");
+    scanf("%d", &key);
+    for (int i = 0; i < 7; i++)
     {
-        scanf("%d",&ar[i]);
-    }
-    a=0;
-    b=n-1;
-    c=(a+b)/2;
-    printf("enter key to be searched\n");
-    scanf("%d",&key);
-    while(b>=a)
-    {   count++;
-        if(ar[c]<key)
+
+        if (ar[i] == key)
         {
-            a=c+1;
-            c=(a+b)/2;
+            printf("found at index %d\n", i);
+            printf("number of comparisons %d\n", i + 1);
+            break;
         }
-        else if(ar[c]>key)
-        {
-            b=c-1;
-            c=(a+b)/2;
-        }
-        else if(ar[c]==key)
-        {
-          printf("key found in %d rounds",count);  
-          flag++;
-          break;
-        }
+        else if (i == 6)
+            printf("element not found");
     }
-    if(flag==0)
-    {
-        printf("key not found");
-    }
+
+    
+    
 }
