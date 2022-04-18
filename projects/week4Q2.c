@@ -6,61 +6,60 @@ array holds values greater than the pivot element. Pivot element should be selec
 from the array. Your program should also find number of comparisons and swaps required for
 sorting the array.
 */
-#include<iostream>
-#include<stdlib.h>
-using namespace std;
-
-int Partition(int A[],int low,int high)
-{
-    int random=low+rand()%(high-low),temp;
-    temp=A[random];
-    A[random]=A[high];
-    A[high]=temp;
-
-    int i=low-1;
-    int pivot=A[high];
-    for(int j=low;j<=high-1;j++)
+#include<stdio.h>
+int s=0;
+void quicksort(int arr[] , int low , int high , int *c);
+int partition(int arr[] , int low , int hight, int *c);
+void swap(int *a,int *b);
+int main(){
+    int i,t=1,n;
+    while(t)
     {
-        if(A[j]<=pivot)
-        {
+        s=0;
+        int c=0;
+        printf("Enter limit :");
+        scanf("%d",&n);
+        int arr[n];
+        printf("Enter elements :");
+
+        for(i=0;i<n;i++){
+            scanf("%d",&arr[i]);
+        }
+        int low=0,high=n-1;
+        quicksort(arr,low,high,&c);
+        for(i=0;i<n;i++){
+            printf("%d ",arr[i]);
+        }
+            printf("\nComparision : %d",c);
+            printf("\nSwaps : %d",s);
+
+    t--;
+    }
+}
+void swap(int *a,int *b){
+    s++;
+    int temp=*a;
+    *a=*b;
+    *b=temp;
+}
+void quicksort(int arr[] , int low , int high , int *c){
+    if(low<high){
+        int p=partition(arr,low,high,c);
+        quicksort(arr,low,p-1,c);
+        quicksort(arr,p+1,high,c);
+    }
+}
+int partition(int arr[] , int low , int high, int *c){
+    int i=low-1;
+    int j;
+    int pivot=arr[high];
+    for(j=i+1;j<high;j++){
+        (*c)++;
+        if(arr[j]<pivot){
             i++;
-            temp=A[j];
-            A[j]=A[i];
-            A[i]=temp;
+            swap(&arr[i],&arr[j]);
         }
     }
-    temp=A[i+1];
-    A[i+1]=A[high];
-    A[high]=temp;
-    return (i+1);
-}
-
-
-void quickSort(int A[],int low,int high)
-{
-    int p;
-    if(low<high)
-    {
-        p=Partition(A,low,high);
-        quickSort(A,low,p-1);
-        quickSort(A,p+1,high);
-    }
-}
-
-
-int main()
-{
-    cout<<"Please input array limit: ";
-    int n;
-    cin>>n;
-    int A[n];
-    cout<<"Please input arrray elements: ";
-    for(int i=0;i<n;i++)
-        cin>>A[i];
-
-        quickSort(A,0,n-1);
-
-    cout<<"\nArray After sorting: ";
-    for(int i=0;i<n;i++)
-        cout<<A[i]<<" ";
+        swap(&arr[i+1],&arr[high]);
+    return i+1;
 }
