@@ -5,40 +5,50 @@
 //usig binary search
 
 #include<stdio.h>
+
 int main()
 {
-  int ar[20],key,i,j,count=0,n,flag=0;
-  printf("enter size of array\n");
-  scanf("%d",&n);
-  for(i=0;i<n;i++)
-  {
-    scanf("%d",&ar[i]);
-  }
-  printf("enter key to be searched\n");
-  scanf("%d",&key);
-  for(i=0;i<n;i++)
-  {
-    if(ar[i]==key)
-    {   
-      flag++;
-      printf("key found at %d position\n",i+1);
-      for(j=i;j<n;j++)
-      {
-        if(ar[j]==key)
+    int t=1;
+
+    while(t)
+    {
+        printf("Enter limit: ");
+        int n;
+        scanf("%d", &n);
+
+        printf("Enter elements: ");
+        int arr[n];
+        for(int i=0; i<n; i++)
+            scanf("%d", &arr[i]);
+
+        printf("Enter key to be found:");
+        int key;
+        scanf("%d", &key);
+
+        int occur1=0,occur2=0,l=0, r=n;
+
+        while(l<=r)
         {
-          count++;
+            int mid = l + (r-l)/2;
+            if(arr[mid]>key){
+                r=mid-1;
+            }
+            else if(arr[mid]<key)
+                l=mid+1;
+            else
+            {
+                occur1=mid;
+                occur2=mid;
+                while(arr[occur1]==arr[mid])
+                    occur1--;
+                while(arr[occur2]==arr[mid])
+                    occur2++;
+                    break;
+            }
         }
-        else
-        {
-             printf("key found %d times",count);
-              break;
-        }
-      }
-      break;
+
+        printf("%d occurs %d times", key,(occur2-occur1)-1);
+
+    t--;
     }
-  }
-  if(flag==0)
-  {
-    printf("key not found");
-  }
 }
