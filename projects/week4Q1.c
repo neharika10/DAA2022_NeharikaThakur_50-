@@ -4,97 +4,104 @@ sort an array of elements by dividing the array into two subarrays and combining
 after sorting each one of them. Your program should also find number of comparisons and
 inversions during sorting the array.
 */
-#include<stdio.h>
-int mergeSort(int A[],int l, int r)
-{
-    static int comp=0;
-if(l<r)
-{
 
-int m=l+(r-l)/2;
-mergeSort(A,l,m);
-mergeSort(A,m+1,r);
-comp+=merge(A,l,m,r);
+#include<iostream>
+using namespace std;
+void display(int [], int);
+void mergeSort(int [], int, int);
+void merge(int [], int , int , int );
+void inverseCompare(int [], int);
+
+int main(){
+    int t=1;
+    while(t){
+
+        int n;
+        cout<<"\nEnter limit: ";
+        cin>>n;
+        int arr[n];
+        for(int i=0; i<n; i++){
+            cin>>arr[i];
+        }
+
+        cout<<"\nArray before sorting: ";
+        display(arr,n);
+
+        mergeSort(arr,0,n-1);
+        inverseCompare(arr,n);
+
+        cout<<"\nArray after sorting: ";
+        display(arr,n);
+
+        t--;
+    }
 }
-return comp;
+
+void display(int arr[], int n){
+    for(int i=0; i<n; i++){
+        cout<<arr[i]<<" ";
+    }
 }
 
-int merge(int A[],int l,int m,int r)
-{
-    int comp=0;
-int n1=m-l+1;
-int n2=r-m;
-int L[n1],R[n2],i;
-for(i=0;i<n1;i++)
-    L[i]=A[l+i];
-for(i=0;i<n2;i++)
-    R[i]=A[m+1+i];
+void mergeSort(int arr[], int l,int r){
+    if(l<r){
+        int m = l+(r-l)/2;
+        mergeSort(arr,l,m);
+        mergeSort(arr,m+1,r);
+        merge(arr,l,m,r);
+    }
+}
 
-    int j,k;
-    i=0;j=0;k=l;  //k=0
-    while(i<n1 && j<n2)
-    {
-        comp++;
-        if(L[i]<=R[j])
-        {
-            A[k]=L[i];
+void merge(int arr[], int l, int m, int r){
+    int n1 = m-l+1;
+    int n2 = r-m;
+
+    int L[n1], R[n2];
+
+    for(int i=0; i<n1; i++){
+        L[i] = arr[l+i];
+    }
+
+    for(int i=0; i<n2; i++){
+        R[i] = arr[m+i+1];
+    }
+
+    int i=0, j=0, k=l;
+
+    while(i<n1 && j<n2){
+        if(L[i]<=R[j]){
+            arr[k]=L[i];
             i++;
             k++;
-        }
-        else
-        {
-            A[k]=R[j];
+        }else{
+            arr[k]=R[j];
             j++;
             k++;
         }
     }
-    while(i<n1)
-    {
-        //comp++;
-        A[k]=L[i];
-        i++;
-        k++;
-    }
-    while(j<n2)
-    {
-        //comp++;
-        A[k]=R[j];
-        j++;
-        k++;
-    }
-    return comp;
+
+    while(i<n1){
+        arr[k]=L[i];
+        i++,k++;
     }
 
-    int countInversions(int A[],int n)
-    {
-    int i,j,count=0;
-    for(i=0;i<n-1;i++)
-            for(j=i+1;j<n;j++)
-            if(A[i]>A[j])
-            count++;
-        return count;
+    while(j<n2){
+        arr[k]=R[j];
+        j++,k++;
     }
-
-int main()
-{
-int n,i,comp,inv,t;
-scanf("%d",&t);
-while(t>0)
-{
-//printf("Input array limit: ");
-scanf("%d",&n);
-int A[n];
-//printf("Input array elements: ");
-for(i=0;i<n;i++)
-scanf("%d",&A[i]);
-
-inv=countInversions(A,n);
-comp=mergeSort(A,0,n-1);
-for(i=0;i<n;i++)
-printf("%d ",A[i]);
-
-printf("\ncomparisons= %d\nInversions= %d",comp,inv);
-
-
 }
+
+void inverseCompare(int arr[], int n){
+
+    int inversion=0,comparision=0;
+    for(int i=0; i<n; i++){
+        for(int j=i; j<n; j++){
+            comparision++;
+            if(arr[i]>arr[j]){
+                inversion++;
+        }
+    }
+    }
+
+    cout<<"\nNo if inversions: "<<inversion<<"\nNo of comparisions: "<<comparision<<endl;
 }
